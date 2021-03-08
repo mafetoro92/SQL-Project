@@ -1,5 +1,15 @@
 import sqlite3
 
+# def run_query(query):
+#     connection = sqlite3.connect('Colombia_universities.db')
+#     # create a cursor
+#     c = connection.cursor()
+#     c.execute(query)
+#     items = c.fetchall()
+#     for i in items:
+#         print(i)
+#     connection.close()
+
 
 def insert_records():
     many_universities = [

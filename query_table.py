@@ -6,10 +6,10 @@ insert_university = """INSERT INTO Universities
 
 get_universities = "SELECT * FROM Universities"
 
-get_universities_by_name = "SELECT * FROM Universities WHERE name = ?"
+get_universities_by_name = ("SELECT * FROM Universities WHERE university_name = ?", "name")
 
 get_more_population_universities = """
-SELECT * FROM Universities WHERE name = ? 
+SELECT * FROM Universities WHERE university_name = ?
 ORDER BY total_population DESC LIMIT 1;
 """
 
@@ -30,7 +30,6 @@ def query_info_table():
     c = connection.cursor()
     while (user_input := input(student_menu)) != '5':
         print(user_input)
-        user_input = input('Enter the option do you want to see')
 
         if user_input == '1':
             university_name = input('Enter university name')
@@ -41,20 +40,20 @@ def query_info_table():
 
             c.execute(insert_university, (university_name, location, total_population, phone_number, email))
             connection.commit()
-            connection.close()
+
 
 
         elif user_input == '2':
-            universities = c.execute(get_universities)
+            c.execute(get_universities)
+            items = c.fetchall()
+            print(items)
             connection.commit()
-            connection.close()
-            print(universities)
+
 
         elif user_input == '3':
             name = input('Enter university name to find:')
-            un = c.execute(get_universities_by_name, (name))
+            un = c.execute(get_universities_by_name, name )
             connection.commit()
-            connection.close()
             print(un)
 
         elif user_input == '4':

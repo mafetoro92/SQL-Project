@@ -6,7 +6,7 @@ insert_university = """INSERT INTO Universities
 
 get_universities = "SELECT * FROM Universities"
 
-get_universities_by_name = ("SELECT * FROM Universities WHERE university_name = ?", "name")
+get_universities_by_name = ("SELECT * FROM Universities WHERE university_name = ?")
 
 get_more_population_universities = """
 SELECT * FROM Universities WHERE university_name = ?
@@ -52,14 +52,19 @@ def query_info_table():
 
         elif user_input == '3':
             name = input('Enter university name to find:')
-            un = c.execute(get_universities_by_name, name )
+            un = c.execute(get_universities_by_name, (name,))
+            items = un.fetchall()
+            print(items)
             connection.commit()
-            print(un)
 
         elif user_input == '4':
             name = input('Enter university name to find:')
-            more_population = c.execute(get_more_population_universities, (name))
-            print(f'The University with more population for {name}, is: {more_population}')
+            more_population = c.execute(get_more_population_universities, (name,))
+            items = more_population.fetchall()
+            print(items)
+            connection.commit()
+
+            #print(f'The University with more population for {name}, is: {more_population}')
 
         else:
             print('Invalid input please try again')

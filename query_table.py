@@ -64,7 +64,5 @@ def query_info_table():
             print(items)
             connection.commit()
 
-            #print(f'The University with more population for {name}, is: {more_population}')
-
         else:
             print('Invalid input please try again')
